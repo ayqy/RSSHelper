@@ -1,0 +1,17 @@
+<ion-view>
+    <ion-nav-title>{{data.title}}</ion-nav-title>
+
+    <ion-content id="weekly-list" overflow-scroll="false" has-bouncing="true" class="stable-bg">
+        <div class="list card" ng-repeat="item in data.items" ng-click="onItemClicked(item)">
+            <!-- 文章标题 -->
+            <div class="item item-divider">
+                <h2>{{item.title}}</h2>
+                <h5 class="date">{{dateFormat(item.date)}}</h5>
+            </div>
+            <!-- 摘要 -->
+            <div class="item item-body">
+                <div ng-bind-html="str2html(item.desc)"></div>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

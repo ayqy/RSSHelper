@@ -1,0 +1,16 @@
+<ion-view>
+    <ion-content id="article-content" overflow-scroll="false" has-bouncing="true" class="stable-bg">
+        <div class="list">
+            <!-- 文章标题 -->
+            <div class="item" ng-click="openUrl(item.link)">
+                <h2 class="title">{{item.title}}</h2>
+                <h5 class="date">{{dateFormat(item.date)}}</h5>
+            </div>
+            <!-- 内容 -->
+            <div class="item item-body">
+                <div ng-hide="contentIsText === false">{{item.content}}</div>
+                <div ng-bind-html="str2html(item.content)"></div>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

@@ -1,0 +1,36 @@
+rss helper
+
+
+前辈
+    feed
+        barretlee
+            http://www.barretlee.com/rss2.xml
+        张鑫旭
+            http://www.zhangxinxu.com/wordpress/feed/
+    page
+        白树
+            http://www.cnblogs.com/PeunZhang/
+        叶小钗
+            http://www.cnblogs.com/yexiaochai/
+        vajoy
+            http://www.cnblogs.com/vajoy/
+        云溪
+            http://www.cnblogs.com/tugenhua0707/
+        Samaritans
+            http://www.cnblogs.com/dolphinX/
+博文
+    feed
+        奇舞团
+            http://www.75team.com/feed/
+    page
+        alinode
+            http://alinode.aliyun.com/blog
+周刊
+    feed
+        奇舞周刊
+            http://www.75team.com/weekly/rss.php
+            http://www.75team.com/weekly/
+笑话
+    page
+        捧腹笑话
+            http://m.pengfu.com/zuixin/

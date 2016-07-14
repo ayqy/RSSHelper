@@ -1,0 +1,109 @@
+/*---extend ionic style */
+
+/* icon size */
+.icon-sm:before {
+    font-size: 26px !important;
+}
+.icon-lg:before {
+    font-size: 40px !important;
+}
+
+.icon-badge-rt:before {
+    font-size: 12px;
+    position: relative;
+    top: -12px;
+    right: -4px;
+}
+.icon-badge-rb:before {
+    font-size: 16px;
+    position: relative;
+    bottom: -2px;
+}
+
+/* button bar */
+.button-bar > .button:last-child {
+    border-right-width: 0;  /* 按下左边按钮，右边按钮会抖动 */
+}
+
+/*---end extend ionic style */
+
+
+/*---base */
+
+/*---end base */
+
+/*---common */
+
+/*---end common */
+
+
+/*---page */
+#master-list .date {
+    text-align: right;
+}
+#blog-list .date {
+    text-align: right;
+}
+#blog-list img {
+    max-width: 100%;
+}
+#weekly-list .date {
+    text-align: right;
+}
+#joke-list .date {
+    text-align: right;
+}
+#article-content .title {
+    text-align: center;
+}
+#article-content .date {
+    text-align: right;
+}
+#article-content .image-placeholder {
+    color: #eee;
+    border: 1px solid #e1e1e1;
+    padding: 2px 4px;
+    border-radius: 2px;
+}
+#article-content .line {
+    display: block;
+}
+#article-content pre,code {
+    display: inline-block;
+    text-indent: 0;
+    padding: 0 0.5em;
+    border-radius: 3px;
+    font-family: Consolas, Monaco, Lucida Console, monospace;
+    background-color: #f4f4f4;
+    color: #666;
+    font-size: 12px;
+    word-wrap: break-word;
+}
+#article-content pre {
+    display: block;
+}
+#article-content ol,ul {
+    margin-left: 2em;
+    margin-bottom: 1em;
+    list-style: none;
+}
+#article-content li {
+    position: relative;
+    margin-bottom: 0.8em;
+    color: #666;
+    font-size: 14px;
+}
+#article-content li:before {
+    content: "-";
+    position: absolute;
+    left: -0.8em;
+    pointer-events: none;
+}
+#article-content table {
+    width: 100%;
+}
+#article-content hr {
+    transform-origin: 0 0;
+    transform: scale(1, 0.5);
+}
+/*---end page */

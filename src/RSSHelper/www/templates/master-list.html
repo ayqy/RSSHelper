@@ -1,0 +1,24 @@
+<ion-view>
+    <ion-nav-title>{{data.title}}</ion-nav-title>
+
+    <ion-content id="master-list" overflow-scroll="false" has-bouncing="true" class="stable-bg">
+<!--
+'title'=>$item->title,
+'link'=>$item->link,
+'date'=>$item->pubDate,
+'desc'=>$item->description,
+'content'=>$item->children("content", true)
+-->
+        <div class="list card" ng-repeat="item in data.items" ng-click="onItemClicked(item)">
+            <!-- 文章标题 -->
+            <div class="item item-divider">
+                <h2>{{item.title}}</h2>
+                <h5 class="date">{{dateFormat(item.date)}}</h5>
+            </div>
+            <!-- 摘要 -->
+            <div class="item item-body">
+                <span>{{item.desc}}</span>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

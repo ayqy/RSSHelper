@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title></title>
+    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
+    <link href="css/ionic.app.css" rel="stylesheet">
+    -->
+    <!-- ionic/angularjs js -->
+    <script src="lib/ionic/js/ionic.bundle.js"></script>
+    <!-- cordova script (this will be a 404 during development) -->
+    <script src="cordova.js"></script>
+    <!-- your app's js -->
+    <script src="js/app.js"></script>
+    <script src="js/controllers.js"></script>
+    <script src="js/services.js"></script>
+</head>
+
+<body ng-app="rsshelper">
+
+    <ion-side-menus>
+        <ion-side-menu ng-controller="SideMenuCtrl" side="left" width="240">
+            <ion-header-bar align-title="left" class="bar-positive">
+                <h1 class="title">菜单</h1>
+            </ion-header-bar>
+            <ion-content overflow-scroll="false" has-bouncing="true">
+                <ion-list>
+                    <ion-item>登陆/注册</ion-item>
+                    <ion-item>定时抓取</ion-item>
+                    <ion-item>历史记录</ion-item>
+                    <ion-item>我的收藏</ion-item>
+                    <ion-item>意见反馈</ion-item>
+                    <ion-item class="item-calm" ng-click="cacheAll()">一键缓存</ion-item>
+                </ion-list>
+            </ion-content>
+            <ion-footer-bar align-title="left" class="bar-light">
+                <div class="button-bar">
+                    <span class="button button-clear button-icon-left">
+                        <i class="icon icon-sm ion-ios-gear-outline"></i>
+                        设置
+                    </span>
+                    <span class="button button-clear button-icon-left">
+                        <i class="icon icon-lg ion-ios-moon-outline"></i>
+                        夜间
+                    </span>
+                </div>
+            </ion-footer-bar>
+        </ion-side-menu>
+
+        <ion-side-menu-content drag-content="true">
+            
+            <!-- 顶部导航条 -->
+            <ion-nav-bar class="bar-positive" align-title="left">
+                <!-- 返回按钮 -->
+                <ion-nav-back-button class="button-clear"></ion-nav-back-button>
+                <ion-nav-buttons side="right">
+                    <ion-spinner ng-hide="isLoading === false" icon="ios" class="spinner-light">
+                </ion-spinner></ion-nav-buttons>
+            </ion-nav-bar>
+            
+            <!-- 内容 -->
+            <ion-nav-view>
+                <!-- 防止启动时黑屏 -->
+                <ion-view></ion-view>
+            </ion-nav-view>
+
+        </ion-side-menu-content>
+    </ion-side-menus>
+
+</body>
+</html>

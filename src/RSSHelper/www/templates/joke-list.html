@@ -1,0 +1,18 @@
+<ion-view>
+    <ion-nav-title>{{data.title}}</ion-nav-title>
+
+    <ion-content id="joke-list" overflow-scroll="false" has-bouncing="true" class="stable-bg">
+        <div class="list card" ng-init="aHide=[]" ng-repeat="item in data.items" ng-click="openUrl(item.link)">
+            <!-- 段子标题 -->
+            <div class="item item-divider">
+                <h2>{{item.title}}</h2>
+                <h5 class="date">{{item.date}}</h5>
+            </div>
+            <!-- 内容 -->
+            <div class="item item-body">
+                <div ng-init="aHide[$index]=isHtml(item.desc)" ng-hide="aHide[$index]">{{item.desc}}</div>
+                <div ng-bind-html="str2html(item.desc)"></div>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

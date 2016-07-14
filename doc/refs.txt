@@ -1,0 +1,18 @@
+// php插件式结构
+http://blog.csdn.net/pamtry/article/details/6935283#
+
+首页列表->摘要列表->正文/浏览器打开
+2次filter机会，插件式应对扩展
+
+Bug
+1.barretlee正文丢失
+2.奇舞周刊rss格式有误
+3.捧腹笑话html结构改变
+4.fex周刊rss格式有误
+5.十年踪迹rss格式有误
+
+Enhancement
+1.正文链接无法点击
+2.图片应该点击加载，而不是直接移除
+3.应该提供首页聚合，并记录已读未读
+4.支持书签收藏

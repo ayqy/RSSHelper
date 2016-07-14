@@ -1,0 +1,21 @@
+
+
+// toast
+function showBottom() {
+  window.plugins.toast.showWithOptions(
+    {
+      message: "hey there",
+      duration: "short",
+      position: "bottom",
+      addPixelsY: -40  // added a negative value to move it up a bit (default 0)
+    },
+    onSuccess, // optional
+    onError    // optional
+  );
+}
+
+// 显示html
+$scope.str2html = function(s) {
+    return $sce.trustAsHtml(s);
+};
+<div ng-bind-html="str2html(item.desc)"></div>
