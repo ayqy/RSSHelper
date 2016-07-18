@@ -1,0 +1,10 @@
+{
+    "http://m.pengfu.com/": {
+        "list": ".post-line-list .list-item",
+        "item_title": ".head-name h1",
+        "item_link": ".head-name h1 a",
+        "item_date": ".head-name p",
+        "item_desc": ".con-img",
+        "item_content": ""
+    }
+}

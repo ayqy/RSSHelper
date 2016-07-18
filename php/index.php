@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         array('name'=>'FEX周刊', 'type'=>'html', 'url'=>'http://fex.baidu.com/weekly/'),
 
         // rss
-        array('name'=>'奇舞周刊', 'type'=>'rss', 'url'=>'http://old.75team.com/weekly/rss.php')
+        array('name'=>'奇舞周刊', 'type'=>'rss', 'url'=>'http://www.75team.com/weekly/rss.php')
     );
     $jokes = array(
         // html
