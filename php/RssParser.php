@@ -4,6 +4,8 @@
 * Rss Parser
 */
 class RssParser {
+    const LIST_LENGTH = 10;
+
     function __construct($url) {
         $this->url = $url;
     }
@@ -28,24 +30,34 @@ class RssParser {
             'title' => "",
             'items' => array()
         );
-        while ($reader->read()) {
+        $tmpArr = null;
+        while (@$reader->read()) {
             if ($reader->nodeType == XMLReader::ELEMENT) {
                 $nodeName = $reader->name;
             }
 
             $nodeType = $reader->nodeType;
-            $tmpArr = null;
             if (!empty($nodeName)) {
                 if ($nodeName === 'item') {
-                    if ($tmpArr !== null) {
-                        array_push($res['items'], $tmpArrtmp);
+                    if ($tmpArr !== null && $tmpArr['title'] !== '') {
+                        array_push($res['items'], $tmpArr);
+                        if (count($res['items']) >= self::LIST_LENGTH) {
+                            break;
+                        }
                     }
                     // new array
-                    $tmpArr = array();
+                    $tmpArr = array(
+                        'title' => '',
+                        'link' => '',
+                        'date' => '',
+                        'desc' => '',
+                        'content' => ''
+                    );
                 }
 
                 // page title
-                if ($reader->depth === 3 && $nodeName === 'title') {
+                //! 开标签和闭标签会经历2次nodeName === 'title'
+                if ($reader->depth === 3 && $nodeName === 'title' && $res['title'] === '') {
                     $res['title'] = $reader->value;
                 }
                 else if ($reader->depth > 3 &&
@@ -86,20 +98,22 @@ class RssParser {
     }
 }
 
+
 // test
-$url = "http://www.zhangxinxu.com/wordpress/feed/"; // url to parse
+// header('Content-Type: text/html; charset=utf-8');
+// $url = "http://www.zhangxinxu.com/wordpress/feed/"; // url to parse
 // // 图片都是相对路径，挂了
 // $url = "http://www.barretlee.com/rss2.xml"; // url to parse
 // // 没有content，只有desc
 // $url = "http://www.75team.com/weekly/rss.php"; // url to parse
-$rp = new RssParser($url);
-$rss = $rp->get();
-var_dump($rss);
-print '<h2>'.$rss['title'].'</h2>';
-foreach ($rss['items'] as $item) {
-    print '<a href="'.$item['link'].'">'.$item['title'].'</a><br />';
-    print '<p>date: '.$item['date'].'</p>';
-    print '<p>desc: '.$item['desc'].'</p>';
-    print '<div>content: '.$item['content'].'</div>';
-}
+// $rp = new RssParser($url);
+// $rss = $rp->get();
+// var_dump($rss);
+// print '<h2>'.$rss['title'].'</h2>';
+// foreach ($rss['items'] as $item) {
+//     print '<h3><a href="'.$item['link'].'">'.$item['title'].'</a><br /></h3>';
+//     print '<p>date: '.$item['date'].'</p>';
+//     print '<p>desc: '.$item['desc'].'</p>';
+//     print '<div>content: '.$item['content'].'</div>';
+// }
 ?>
