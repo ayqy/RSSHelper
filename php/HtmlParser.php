@@ -54,6 +54,32 @@ class HtmlParser {
             $tmpArr['date'] = $item->find($rule['item_date'])[0]->text();
             $tmpArr['desc'] = $item->find($rule['item_desc'])[0]->html();
 
+            // complete relative url
+            if (stripos($tmpArr['link'], 'http') !== 0) {
+                if (stripos($tmpArr['link'], '/') === 0) {
+                    // root path
+                    // echo $tmpArr['link'] . '<br>';///
+                    $tmpArr['link'] = preg_replace("/^(https?:\/\/[^\/]+)\/\S*/si",
+                        '${1}' . $tmpArr['link'],
+                        $this->url
+                    );
+                    // echo $tmpArr['link'] . '<br>';///
+                }
+                else {
+                    // current path
+                    //!!! 不处理./和../
+                    if (substr($this->url, -1) === '/') {
+                        $tmpArr['link'] = $this->url . $tmpArr['link'];
+                    }
+                    else {
+                        $aUrl = explode('/', $this->url);
+                        array_pop($aUrl);
+                        array_push($aUrl, $tmpArr['link']);
+                        $tmpArr['link'] = implode('/', $aUrl);
+                    }
+                }
+            }
+
             array_push($res['items'], $tmpArr);
             if (count($res['items']) >= self::LIST_LENGTH) {
                 break;
