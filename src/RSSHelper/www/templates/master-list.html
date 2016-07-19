@@ -17,7 +17,8 @@
             </div>
             <!-- 摘要 -->
             <div class="item item-body">
-                <span>{{item.desc}}</span>
+                <!-- <span>{{item.desc}}</span> -->
+                <div ng-bind-html="str2html(item.desc)"></div>
             </div>
         </div>
     </ion-content>

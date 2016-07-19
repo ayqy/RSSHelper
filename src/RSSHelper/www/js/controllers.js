@@ -1,7 +1,7 @@
 angular.module('rsshelper.controllers', [])
 
-.controller('TabCtrl', ['$scope', '$location', 'DataServ', 'UIServ',
-        function($scope, $location, DataServ, UIServ) {
+.controller('TabCtrl', ['$scope', '$rootScope', '$sce', '$location', 'DataServ', 'UIServ',
+        function($scope, $rootScope, $sce, $location, DataServ, UIServ) {
     // 显示loading
     UIServ.loading();
 
@@ -13,6 +13,14 @@ angular.module('rsshelper.controllers', [])
         // 隐藏loading
         UIServ.loading(false);
     });
+
+    // 工具函数
+    $rootScope.str2html = function(s) {
+        return $sce.trustAsHtml(s);
+    };
+    $rootScope.dateFormat = function(dateString) {
+        return new Date(dateString).toLocaleString();
+    };
 }])
 .controller('SideMenuCtrl', ['$scope', 'DataServ', 'UIServ',
         function($scope, DataServ, UIServ) {
@@ -55,8 +63,8 @@ angular.module('rsshelper.controllers', [])
 }])
 
 //---Master
-.controller('MasterListCtrl', ['$scope', '$stateParams', 'DataServ', 'UIServ',
-        function($scope, $stateParams, DataServ, UIServ) {
+.controller('MasterListCtrl', ['$scope', '$rootScope', '$stateParams', 'DataServ', 'UIServ',
+        function($scope, $rootScope, $stateParams, DataServ, UIServ) {
     // 显示loading
     UIServ.loading();
 
@@ -69,9 +77,7 @@ angular.module('rsshelper.controllers', [])
             DataServ.rss(master.url, function(oData) {
                 $scope.data = oData;
 
-                $scope.dateFormat = function(dateString) {
-                    return new Date(dateString).toLocaleString();
-                };
+                $scope.dateFormat = $rootScope.dateFormat;
 
                 // 隐藏loading
                 UIServ.loading(false);
@@ -91,6 +97,7 @@ angular.module('rsshelper.controllers', [])
             });
         }
 
+        $scope.str2html = $rootScope.str2html;
         $scope.onItemClicked = function(item) {
             if (item.content === '') {
                 UIServ.openUrl(item.link);
@@ -103,8 +110,8 @@ angular.module('rsshelper.controllers', [])
 }])
 
 //---Blog
-.controller('BlogListCtrl', ['$scope', '$stateParams', '$sce', 'DataServ', 'UIServ',
-        function($scope, $stateParams, $sce, DataServ, UIServ) {
+.controller('BlogListCtrl', ['$scope', '$rootScope', '$stateParams', '$sce', 'DataServ', 'UIServ',
+        function($scope, $rootScope, $stateParams, $sce, DataServ, UIServ) {
     // 显示loading
     UIServ.loading();
 
@@ -117,9 +124,7 @@ angular.module('rsshelper.controllers', [])
             DataServ.rss(blog.url, function(oData) {
                 $scope.data = oData;
 
-                $scope.dateFormat = function(dateString) {
-                    return new Date(dateString).toLocaleString();
-                };
+                $scope.dateFormat = $rootScope.dateFormat;
 
                 // 隐藏loading
                 UIServ.loading(false);
@@ -128,16 +133,9 @@ angular.module('rsshelper.controllers', [])
         else if (blog.type === 'html') {
             DataServ.html(blog.url, function(oData) {
                 $scope.data = oData;
-                $scope.descIsText = true;
 
-                $scope.str2html = function(s) {
-                    // 是html
-                    if (isHtml(s)) {
-                        $scope.descIsText = false;
-                        
-                        return $sce.trustAsHtml(s);
-                    }
-                };
+                $scope.str2html = $rootScope.str2html;
+                // 不转换日期格式
                 $scope.dateFormat = function(dateString) {
                     return dateString;
                 };
@@ -159,8 +157,8 @@ angular.module('rsshelper.controllers', [])
 }])
 
 //---Weekly
-.controller('WeeklyListCtrl', ['$scope', '$stateParams', '$sce', 'DataServ', 'UIServ',
-        function($scope, $stateParams, $sce, DataServ, UIServ) {
+.controller('WeeklyListCtrl', ['$scope', '$rootScope', '$stateParams', '$sce', 'DataServ', 'UIServ',
+        function($scope, $rootScope, $stateParams, $sce, DataServ, UIServ) {
     // 显示loading
     UIServ.loading();
 
@@ -172,12 +170,8 @@ angular.module('rsshelper.controllers', [])
             DataServ.rss(weekly.url, function(oData) {
                 $scope.data = oData;
                 
-                $scope.str2html = function(s) {
-                    return $sce.trustAsHtml(s);
-                };
-                $scope.dateFormat = function(dateString) {
-                    return new Date(dateString).toLocaleString();
-                };
+                $scope.str2html = $rootScope.str2html;
+                $scope.dateFormat = $rootScope.dateFormat;
 
                 // 隐藏loading
                 UIServ.loading(false);
@@ -198,8 +192,8 @@ angular.module('rsshelper.controllers', [])
 }])
 
 //---Joke
-.controller('JokeListCtrl', ['$scope', '$stateParams', '$sce', 'DataServ', 'UIServ',
-        function($scope, $stateParams, $sce, DataServ, UIServ) {
+.controller('JokeListCtrl', ['$scope', '$rootScope', '$stateParams', '$sce', 'DataServ', 'UIServ',
+        function($scope, $rootScope, $stateParams, $sce, DataServ, UIServ) {
     // 显示loading
     UIServ.loading();
 
@@ -210,16 +204,9 @@ angular.module('rsshelper.controllers', [])
         if (joke.type === 'html') {
             DataServ.html(joke.url, function(oData) {
                 $scope.data = oData;
-                $scope.descIsText = true;
 
                 $scope.openUrl = UIServ.openUrl;
-                $scope.isHtml = isHtml;
-                $scope.str2html = function(s) {
-                    // 是html
-                    if (isHtml(s)) {
-                        return $sce.trustAsHtml(s);
-                    }
-                };
+                $scope.str2html = $rootScope.str2html;
 
                 // 隐藏loading
                 UIServ.loading(false);
