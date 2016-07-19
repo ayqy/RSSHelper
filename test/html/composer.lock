@@ -4,9 +4,52 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "59ccc274abd0f782fac4f787fed73466",
-    "content-hash": "ebf1917682bedccc474f9f681d7289b6",
+    "hash": "da64db0728ee7511e6e811e3431dd17e",
+    "content-hash": "649794ffb06b7ae4b5c1c87ce9896570",
     "packages": [
+        {
+            "name": "bupt1987/html-parser",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/bupt1987/html-parser.git",
+                "reference": "60f207eb5259988a3fb3c400efcb1ef7c6e7b58c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/bupt1987/html-parser/zipball/60f207eb5259988a3fb3c400efcb1ef7c6e7b58c",
+                "reference": "60f207eb5259988a3fb3c400efcb1ef7c6e7b58c",
+                "shasum": ""
+            },
+            "require": {
+                "ext-dom": "*",
+                "php": ">=5.5"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "4.6.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "HtmlParser\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "俊杰jerry",
+                    "email": "bupt1987@gmail.com",
+                    "homepage": "http://bupt1987.github.io",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Html Parser",
+            "homepage": "https://github.com/bupt1987/html-parser",
+            "time": "2016-04-21 12:18:56"
+        },
         {
             "name": "imangazaliev/didom",
             "version": "1.7.0",
@@ -57,7 +100,9 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "bupt1987/html-parser": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],

@@ -1,5 +1,6 @@
 {
     "require": {
-        "imangazaliev/didom": "^1.7"
+        "imangazaliev/didom": "^1.7",
+        "bupt1987/html-parser": "dev-master"
     }
 }

@@ -21,24 +21,19 @@ class HtmlParser {
         return json_decode($json, true);
     }
 
-    function getList($url, $type) {
-        
-
-        foreach($list as $item) {
-            echo $title = $item->find($rule['item_title'])[0]->text() . '<br>';
-            echo $link = $item->find($rule['item_link'])[0]->getAttribute('href') . '<br>';
-            echo $date = $item->find($rule['item_date'])[0]->text() . '<br>';
-            echo $content = $item->find($rule['item_desc'])[0] . '<br>';
-        }
-    }
-
     function get() {
         // 读取匹配规则
         $matchRules = $this->getMatchRules();
         $rule = $matchRules[$this->url];
 
         // 解析文档
-        $doc = new Document($this->url, true);
+        $row = file_get_contents($this->url);
+        // fix charset
+        $row = preg_replace("/<head>/si",
+            '<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8">',
+            $row
+        );
+        $doc = new Document($row);
         $title = $doc->find('title')[0]->text();
         $res = array(
             'title' => $title,
