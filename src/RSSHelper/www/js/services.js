@@ -15,11 +15,12 @@ angular.module('rsshelper.services', [])
 
     function openUrl(sUrl) {
         // cordova plugin add org.apache.cordova.inappbrowser
+console.log('open ' + sUrl);
         window.open(sUrl, '_system'); // 系统默认浏览器
     }
-    function openInnerUrl(sPath) {
+    function openInnerUrl(sPath, oParams) {
         console.log('to inner url: ' + sPath);
-        $location.path(sPath);
+        $location.path(sPath).search(oParams || {});
     }
     function loading(bShow) {
         if (bShow === false) {
@@ -41,18 +42,35 @@ angular.module('rsshelper.services', [])
 }])
 
 .service('DataServ', ['$http', 'UIServ', function($http, UIServ) {
-    // localStorage
+    // 缓存数据项格式
+    // sUrl: {
+    //     sState: 'ON/OFF/READY',
+    //     aCallback: [callback1, callback2],
+    //     oData: {code: 200, date: {xxx}},
+    //     iExpire: long
+    // }
+
+    // localStorage，缓存过期控制
     var storage = (function() {
         var oStorage = localStorage;
         
         // return null, if failed
         function get(sKey) {
             var res = oStorage.getItem(sKey);
-            return JSON.parse(res);
+            res = JSON.parse(res);
+            // 检查过期
+            if (res && res.iExpire < Date.now()) {
+                del(sKey);  // 删除过期数据
+                res = null;
+            }
+
+            return res;
         }
         function set(sKey, val) {
             var _val = val;
 
+            if (typeof _val.iExpire !== 'number')
+                throw new Error('Expire not found');
             if (typeof val === 'object') {
                 _val = JSON.stringify(val);
             }
@@ -73,18 +91,6 @@ angular.module('rsshelper.services', [])
             clear: clear
         };
     })();
-    var oCache = {
-        // sUrl: {
-        //     sState: 'ON/OFF/READY',
-        //     aCallback: [callback1, callback2],
-        //     oData: {code: 200, date: {xxx}},
-        //     iExpire: long
-        // }
-    };
-    // 字典
-    var oDir = {
-        // key: value
-    };
 
     function jsonp(sUrl, fCallback, oArgs, iExpire) {
         // 默认有效期60分钟
@@ -103,25 +109,15 @@ angular.module('rsshelper.services', [])
         else {
             sUrl += '?callback=JSON_CALLBACK';
         }
+
+
         // 请求数据并缓存结果
-        var _oCache = oCache[sUrl];
-        if (typeof _oCache !== 'object') {
-            // 创建cache
-            _oCache = storage.get(sUrl) || {
-                sState: 'OFF',
-                aCallback: [fCallback],
-                oData: null,
-                iExpire: iExpire
-            };
-            // 检查缓存过期
-            if (_oCache.iExpire < Date.now()) {
-                _oCache.sState = 'OFF';
-                _oCache.aCallback = [fCallback];    // 添加callback
-                _oCache.oData = null;               // 清空数据（非必须）
-                _oCache.iExpire = iExpire;          // 更新过期时间
-            }
-            oCache[sUrl] = _oCache;
-        }
+        var _oCache = storage.get(sUrl) || {
+            sState: 'OFF',
+            aCallback: [fCallback],
+            oData: null,
+            iExpire: iExpire
+        };
         if (_oCache.sState === 'OFF') {
 console.log('no data, catch data now');
             _oCache.sState = 'ON';
@@ -149,13 +145,14 @@ console.log(err);
             });
         }
         else if (_oCache.sState === 'ON') {
-            console.log('catching data, wait..');
+console.log('catching data, wait..');
             // 加入回调队列，等待请求返回
             _oCache.aCallback.push(fCallback);
         }
         else if (_oCache.sState === 'READY') {
 console.log('data is ready, callback now');
             // 直接执行回调
+console.log(_oCache.oData);
             fCallback(_oCache.oData);
         }
     }
@@ -181,14 +178,23 @@ console.log('data is ready, callback now');
         });
     }
 
+    // 内存临时字典
+    var oDir = {
+        // key: value
+    };
     function save(val) {
         var sKey = Date.now() + '';
         oDir[sKey] = val;
+        // store
+//...
+
+        // storage.set(sKey, val);
+
         return sKey;
     }
 
-    function get(sKey) {
-        return oDir[sKey];
+    function get(sKey, bFromStorage) {
+        return oDir[sKey] || null;
     }
 
     return {
