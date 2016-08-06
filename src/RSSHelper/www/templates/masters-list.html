@@ -1,8 +1,15 @@
 <ion-view>
     <ion-nav-title>{{data.title}}</ion-nav-title>
 
-    <ion-content id="blog-list" overflow-scroll="false" has-bouncing="true" class="stable-bg">
-        <div class="list card" ng-repeat="item in data.items" ng-click="onItemClicked(item)">
+    <ion-content id="master-list" overflow-scroll="false" has-bouncing="true" class="stable-bg">
+<!--
+'title'=>$item->title,
+'link'=>$item->link,
+'date'=>$item->pubDate,
+'desc'=>$item->description,
+'content'=>$item->children("content", true)
+-->
+        <div class="list card" ng-repeat="item in data.items" ng-click="onItemClicked(item, $index)">
             <!-- 文章标题 -->
             <div class="item item-divider">
                 <h2>{{item.title}}</h2>
@@ -10,7 +17,7 @@
             </div>
             <!-- 摘要 -->
             <div class="item item-body">
-                <div ng-hide="descIsText === false">{{item.desc}}</div>
+                <!-- <span>{{item.desc}}</span> -->
                 <div ng-bind-html="str2html(item.desc)"></div>
             </div>
         </div>

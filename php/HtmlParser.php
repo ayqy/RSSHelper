@@ -21,24 +21,19 @@ class HtmlParser {
         return json_decode($json, true);
     }
 
-    function getList($url, $type) {
-        
-
-        foreach($list as $item) {
-            echo $title = $item->find($rule['item_title'])[0]->text() . '<br>';
-            echo $link = $item->find($rule['item_link'])[0]->getAttribute('href') . '<br>';
-            echo $date = $item->find($rule['item_date'])[0]->text() . '<br>';
-            echo $content = $item->find($rule['item_desc'])[0] . '<br>';
-        }
-    }
-
     function get() {
         // 读取匹配规则
         $matchRules = $this->getMatchRules();
         $rule = $matchRules[$this->url];
 
         // 解析文档
-        $doc = new Document($this->url, true);
+        $row = file_get_contents($this->url);
+        // fix charset
+        $row = preg_replace("/<head>/si",
+            '<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8">',
+            $row
+        );
+        $doc = new Document($row);
         $title = $doc->find('title')[0]->text();
         $res = array(
             'title' => $title,
@@ -58,6 +53,32 @@ class HtmlParser {
             $tmpArr['link'] = $item->find($rule['item_link'])[0]->getAttribute('href');
             $tmpArr['date'] = $item->find($rule['item_date'])[0]->text();
             $tmpArr['desc'] = $item->find($rule['item_desc'])[0]->html();
+
+            // complete relative url
+            if (stripos($tmpArr['link'], 'http') !== 0) {
+                if (stripos($tmpArr['link'], '/') === 0) {
+                    // root path
+                    // echo $tmpArr['link'] . '<br>';///
+                    $tmpArr['link'] = preg_replace("/^(https?:\/\/[^\/]+)\/\S*/si",
+                        '${1}' . $tmpArr['link'],
+                        $this->url
+                    );
+                    // echo $tmpArr['link'] . '<br>';///
+                }
+                else {
+                    // current path
+                    //!!! 不处理./和../
+                    if (substr($this->url, -1) === '/') {
+                        $tmpArr['link'] = $this->url . $tmpArr['link'];
+                    }
+                    else {
+                        $aUrl = explode('/', $this->url);
+                        array_pop($aUrl);
+                        array_push($aUrl, $tmpArr['link']);
+                        $tmpArr['link'] = implode('/', $aUrl);
+                    }
+                }
+            }
 
             array_push($res['items'], $tmpArr);
             if (count($res['items']) >= self::LIST_LENGTH) {

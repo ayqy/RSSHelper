@@ -7,6 +7,10 @@ namespace Composer\Autoload;
 class ComposerStaticInit5f4e8fe4398fc0a187f21eacbd1c8784
 {
     public static $prefixLengthsPsr4 = array (
+        'H' => 
+        array (
+            'HtmlParser\\' => 11,
+        ),
         'D' => 
         array (
             'DiDom\\' => 6,
@@ -14,6 +18,10 @@ class ComposerStaticInit5f4e8fe4398fc0a187f21eacbd1c8784
     );
 
     public static $prefixDirsPsr4 = array (
+        'HtmlParser\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/bupt1987/html-parser/src',
+        ),
         'DiDom\\' => 
         array (
             0 => __DIR__ . '/..' . '/imangazaliev/didom/src/DiDom',

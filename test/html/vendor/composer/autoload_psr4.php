@@ -6,5 +6,6 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'HtmlParser\\' => array($vendorDir . '/bupt1987/html-parser/src'),
     'DiDom\\' => array($vendorDir . '/imangazaliev/didom/src/DiDom'),
 );

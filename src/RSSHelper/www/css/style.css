@@ -29,7 +29,29 @@
 
 
 /*---base */
-
+img {
+    max-width: 100% !important;
+    /* 覆盖掉内联宽高 */
+    width: 100% !important;
+    height: auto !important;
+}
+pre,code {
+    display: inline-block;
+    text-indent: 0;
+    padding: 0 0.5em;
+    border-radius: 3px;
+    font-family: Consolas, Monaco, Lucida Console, monospace;
+    background-color: #f4f4f4;
+    color: #666;
+    font-size: 12px;
+    word-wrap: break-word;
+}
+pre {
+    display: block;
+}
+pre code {
+    display: block;
+}
 /*---end base */
 
 /*---common */
@@ -68,22 +90,8 @@
 #article-content .line {
     display: block;
 }
-#article-content pre,code {
-    display: inline-block;
-    text-indent: 0;
-    padding: 0 0.5em;
-    border-radius: 3px;
-    font-family: Consolas, Monaco, Lucida Console, monospace;
-    background-color: #f4f4f4;
-    color: #666;
-    font-size: 12px;
-    word-wrap: break-word;
-}
-#article-content pre {
-    display: block;
-}
 #article-content ol,ul {
-    margin-left: 2em;
+    /*margin-left: 2em;*/
     margin-bottom: 1em;
     list-style: none;
 }

@@ -1,14 +1,18 @@
 angular.module('rsshelper.controllers', [])
 
-.controller('TabCtrl', ['$scope', '$location', 'DataServ', 'UIServ',
-        function($scope, $location, DataServ, UIServ) {
+// tab页通用ctrl
+.controller('TabCtrl', ['$scope', '$stateParams', 'DataServ', 'UIServ',
+        function($scope, $stateParams, DataServ, UIServ) {
     // 显示loading
     UIServ.loading();
 
-    var cate = $location.path().split('/').pop();
+    var cate = $stateParams.cate;
     DataServ.index(function(oData) {
-        $scope.data = oData[cate + 's'];
-        $scope.openInnerUrl = UIServ.openInnerUrl;
+        $scope.data = oData[cate];
+
+        $scope.onItemClicked = function(listId) {
+            UIServ.openInnerUrl('/tab/' + cate + '/' + listId, {cate: cate});
+        };
 
         // 隐藏loading
         UIServ.loading(false);
@@ -53,32 +57,37 @@ angular.module('rsshelper.controllers', [])
         });
     };
 }])
+.controller('NavBarCtrl', ['$scope', '$rootScope', 'UIServ',
+        function($scope, $rootScope, UIServ) {
+
+        $rootScope.share = UIServ.openUrl;
+}])
+
 
 //---Master
-.controller('MasterListCtrl', ['$scope', '$stateParams', 'DataServ', 'UIServ',
-        function($scope, $stateParams, DataServ, UIServ) {
+.controller('MasterListCtrl', ['$scope', '$rootScope', '$stateParams', 'DataServ', 'UIServ',
+        function($scope, $rootScope, $stateParams, DataServ, UIServ) {
     // 显示loading
     UIServ.loading();
-
+    
+    var cate = $stateParams.cate;
+    var listId = $stateParams.listId;
     // 请求数据
-    var id = $stateParams.masterId;
     DataServ.index(function(oData) {
-        var master = oData.masters[id];
+        var list = oData[cate][listId];
 
-        if (master.type === 'rss') {
-            DataServ.rss(master.url, function(oData) {
+        if (list.type === 'rss') {
+            DataServ.rss(list.url, function(oData) {
                 $scope.data = oData;
 
-                $scope.dateFormat = function(dateString) {
-                    return new Date(dateString).toLocaleString();
-                };
+                $scope.dateFormat = $rootScope.dateFormat;
 
                 // 隐藏loading
                 UIServ.loading(false);
             });
         }
-        else if (master.type === 'html') {
-            DataServ.html(master.url, function(oData) {
+        else if (list.type === 'html') {
+            DataServ.html(list.url, function(oData) {
                 $scope.data = oData;
 
                 $scope.dateFormat = function(dateString) {
@@ -91,35 +100,35 @@ angular.module('rsshelper.controllers', [])
             });
         }
 
-        $scope.onItemClicked = function(item) {
+        $scope.str2html = $rootScope.str2html;
+        $scope.onItemClicked = function(item, index) {
             if (item.content === '') {
                 UIServ.openUrl(item.link);
             }
             else {
-                UIServ.openInnerUrl('/tab/master/article/' + DataServ.save(item));
+                UIServ.openInnerUrl('/tab/' + cate + '/' + listId + '/' + index, {cate: cate});
             }
         };
     });
 }])
 
 //---Blog
-.controller('BlogListCtrl', ['$scope', '$stateParams', '$sce', 'DataServ', 'UIServ',
-        function($scope, $stateParams, $sce, DataServ, UIServ) {
+.controller('BlogListCtrl', ['$scope', '$rootScope', '$stateParams', '$sce', 'DataServ', 'UIServ',
+        function($scope, $rootScope, $stateParams, $sce, DataServ, UIServ) {
     // 显示loading
     UIServ.loading();
 
     // 请求数据
-    var id = $stateParams.blogId;
+    var listId = $stateParams.listId;
+    var cate = $stateParams.cate;
     DataServ.index(function(oData) {
-        var blog = oData.blogs[id];
+        var blog = oData[cate][listId];
 
         if (blog.type === 'rss') {
             DataServ.rss(blog.url, function(oData) {
                 $scope.data = oData;
 
-                $scope.dateFormat = function(dateString) {
-                    return new Date(dateString).toLocaleString();
-                };
+                $scope.dateFormat = $rootScope.dateFormat;
 
                 // 隐藏loading
                 UIServ.loading(false);
@@ -128,16 +137,9 @@ angular.module('rsshelper.controllers', [])
         else if (blog.type === 'html') {
             DataServ.html(blog.url, function(oData) {
                 $scope.data = oData;
-                $scope.descIsText = true;
 
-                $scope.str2html = function(s) {
-                    // 是html
-                    if (isHtml(s)) {
-                        $scope.descIsText = false;
-                        
-                        return $sce.trustAsHtml(s);
-                    }
-                };
+                $scope.str2html = $rootScope.str2html;
+                // 不转换日期格式
                 $scope.dateFormat = function(dateString) {
                     return dateString;
                 };
@@ -147,37 +149,34 @@ angular.module('rsshelper.controllers', [])
             });
         }
 
-        $scope.onItemClicked = function(item) {
+        $scope.onItemClicked = function(item, index) {
             if (item.content === '') {
                 UIServ.openUrl(item.link);
             }
             else {
-                UIServ.openInnerUrl('/tab/blog/article/' + DataServ.save(item));
+                UIServ.openInnerUrl('/tab/' + cate + '/' + listId + '/' + index, {cate: cate});
             }
         };
     });
 }])
 
 //---Weekly
-.controller('WeeklyListCtrl', ['$scope', '$stateParams', '$sce', 'DataServ', 'UIServ',
-        function($scope, $stateParams, $sce, DataServ, UIServ) {
+.controller('WeeklyListCtrl', ['$scope', '$rootScope', '$stateParams', '$sce', 'DataServ', 'UIServ',
+        function($scope, $rootScope, $stateParams, $sce, DataServ, UIServ) {
     // 显示loading
     UIServ.loading();
 
-    var id = $stateParams.weeklyId;
+    var listId = $stateParams.listId;
+    var cate = $stateParams.cate;
     DataServ.index(function(oData) {
-        var weekly = oData.weeklys[id];
+        var weekly = oData[cate][listId];
 
         if (weekly.type === 'rss') {
             DataServ.rss(weekly.url, function(oData) {
                 $scope.data = oData;
                 
-                $scope.str2html = function(s) {
-                    return $sce.trustAsHtml(s);
-                };
-                $scope.dateFormat = function(dateString) {
-                    return new Date(dateString).toLocaleString();
-                };
+                $scope.str2html = $rootScope.str2html;
+                $scope.dateFormat = $rootScope.dateFormat;
 
                 // 隐藏loading
                 UIServ.loading(false);
@@ -186,40 +185,34 @@ angular.module('rsshelper.controllers', [])
         // else if
         // ...暂无html周刊源
         
-        $scope.onItemClicked = function(item) {
+        $scope.onItemClicked = function(item, index) {
             if (item.content === '') {
                 UIServ.openUrl(item.link);
             }
             else {
-                UIServ.openInnerUrl('/tab/weekly/article/' + DataServ.save(item));
+                UIServ.openInnerUrl('/tab/' + cate + '/' + listId + '/' + index);
             }
         };
     });
 }])
 
 //---Joke
-.controller('JokeListCtrl', ['$scope', '$stateParams', '$sce', 'DataServ', 'UIServ',
-        function($scope, $stateParams, $sce, DataServ, UIServ) {
+.controller('JokeListCtrl', ['$scope', '$rootScope', '$stateParams', '$sce', 'DataServ', 'UIServ',
+        function($scope, $rootScope, $stateParams, $sce, DataServ, UIServ) {
     // 显示loading
     UIServ.loading();
 
-    var id = $stateParams.jokeId;
+    var listId = $stateParams.listId;
+    var cate = $stateParams.cate;
     DataServ.index(function(oData) {
-        var joke = oData.jokes[id];
+        var joke = oData[cate][listId];
 
         if (joke.type === 'html') {
             DataServ.html(joke.url, function(oData) {
                 $scope.data = oData;
-                $scope.descIsText = true;
 
                 $scope.openUrl = UIServ.openUrl;
-                $scope.isHtml = isHtml;
-                $scope.str2html = function(s) {
-                    // 是html
-                    if (isHtml(s)) {
-                        return $sce.trustAsHtml(s);
-                    }
-                };
+                $scope.str2html = $rootScope.str2html;
 
                 // 隐藏loading
                 UIServ.loading(false);
@@ -231,38 +224,50 @@ angular.module('rsshelper.controllers', [])
 }])
 
 // common 3th level
-.controller('ArticleContentCtrl', ['$scope', '$stateParams', '$sce', 'DataServ', 'UIServ',
-        function($scope, $stateParams, $sce, DataServ, UIServ) {
+.controller('ArticleContentCtrl', ['$scope', '$rootScope', '$stateParams', '$sce', 'DataServ', 'UIServ',
+        function($scope, $rootScope, $stateParams, $sce, DataServ, UIServ) {
     // 显示loading
     UIServ.loading();
 
-    var dataKey = $stateParams.dataKey;
-    var item = DataServ.get(dataKey);
+    var cate = $stateParams.cate;
+    var listId = $stateParams.listId;
+    var itemId = $stateParams.itemId;
 
-    $scope.item = item;
-    $scope.contentIsText = true;
+    var render = function(item) {
+        $scope.item = item;
 
-    $scope.str2html = function(s) {
-        // 是html
-        if (isHtml(s)) {
-            $scope.contentIsText = false;
-            
-            return $sce.trustAsHtml(s);
+        $scope.str2html = $rootScope.str2html;
+        $scope.dateFormat = $rootScope.dateFormat;
+        $scope.openUrl = UIServ.openUrl;
+
+        // 隐藏loading
+        UIServ.loading(false);
+        // 内容页支持分享
+        $rootScope.articleUrl = item.link;
+        $rootScope.enableShare = true;
+        $scope.$on("$destroy", function(){
+            $rootScope.enableShare = false;
+            $rootScope.articleUrl = '';
+        });
+    };
+
+    DataServ.index(function(oData) {
+        var list = oData[cate][listId];
+        if (list.type === 'rss') {
+            DataServ.rss(list.url, function(oData) {
+                var item = oData.items[itemId];
+                render(item);
+                // 隐藏loading
+                UIServ.loading(false);
+            });
         }
-    };
-    $scope.dateFormat = function(dateString) {
-        return new Date(dateString).toLocaleString();
-    };
-    $scope.openUrl = UIServ.openUrl;
-
-    // 隐藏loading
-    UIServ.loading(false);
+        else if (list.type === 'html') {
+            DataServ.html(list.url, function(oData) {
+                var item = oData.items[itemId];
+                render(item);
+                // 隐藏loading
+                UIServ.loading(false);
+            });
+        }
+    });
 }]);
-
-
-
-
-//---custom func
-function isHtml(s) {
-    return /<(div)|(p)|(span)|(section)|(img)|(a)[^>]*>/i.test(s);
-}
