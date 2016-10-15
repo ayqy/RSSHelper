@@ -29,10 +29,22 @@ class HtmlParser {
         // 解析文档
         $row = file_get_contents($this->url);
         // fix charset
-        $row = preg_replace("/<head>/si",
+        $row = preg_replace('/<head>/si',
             '<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8">',
             $row
         );
+        // 去掉BOM头
+        function removeBOM($content) { 
+            $charset[1] = substr($content, 0, 1);
+            $charset[2] = substr($content, 1, 1);
+            $charset[3] = substr($content, 2, 1);
+            if (ord($charset[1]) == 239 && ord($charset[2]) == 187 && ord($charset[3]) == 191) { 
+                return substr($content, 3);
+            }
+            return $content;
+        }
+        $row = removeBOM($row);
+
         $doc = new Document($row);
         $title = $doc->find('title')[0]->text();
         $res = array(

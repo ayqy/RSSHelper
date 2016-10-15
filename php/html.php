@@ -27,6 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     
     // callback wrapper
     if (strpos($_SERVER["REQUEST_URI"], 'callback')) {
+        // $res = $_GET['callback'].'('.json_encode($res, JSON_UNESCAPED_UNICODE).')';
         $res = $_GET['callback'].'('.json_encode($res).')';
         echo $res;
     }
