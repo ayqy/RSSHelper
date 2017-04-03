@@ -1,9 +1,9 @@
 {
     "http://m.pengfu.com/": {
         "list": ".post-line-list .list-item",
-        "item_title": ".head-name h1",
-        "item_link": ".head-name h1 a",
-        "item_date": ".head-name p",
+        "item_title": ".humorListTitle h1",
+        "item_link": ".humorListTitle h1 a",
+        "item_date": ".head-name .dp-i-b",
         "item_desc": ".con-img",
         "item_content": ""
     },
