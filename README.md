@@ -66,3 +66,8 @@ Then an apk file will be generated:
 
     <path/to>RSSHelper/src/RSSHelper/platforms/android/build/outputs/apk/android-release.apk
 
+##  Reference page that may be helpful
+
+1.  error occurred when build with crosswalk
+
+  http://stackoverflow.com/questions/35063792/build-error-after-adding-crosswalk-plugin-to-a-cordova-android-project
