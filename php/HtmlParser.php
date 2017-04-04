@@ -12,6 +12,10 @@ class HtmlParser {
 
     function __construct($url) {
         $this->url = $url;
+        $this->rootUrl = preg_replace("/^(https?:\/\/[^\/]+)\/\S*/si",
+            '${1}',
+            $url
+        );
     }
 
     private function getMatchRules() {
@@ -19,6 +23,42 @@ class HtmlParser {
         $json = utf8_encode($row);
         //! decode第二个参数转换为数组，方便读取
         return json_decode($json, true);
+    }
+
+    private function fixRelativeUrl($url) {
+        if (stripos($url, '/') === 0) {
+            // root path
+            $url = $this->rootUrl . $url;
+        }
+        else {
+            // current path
+            //!!! 不处理./和../
+            if (substr($this->url, -1) === '/') {
+                $tmpArr['link'] = $this->url . $url;
+            }
+            else {
+                $aUrl = explode('/', $this->url);
+                array_pop($aUrl);
+                array_push($aUrl, $url);
+                $url = implode('/', $aUrl);
+            }
+        }
+
+        return $url;
+    }
+
+    private function convertImgSrc($html) {
+        // 滤掉img标签
+        $that = $this;
+        $html = preg_replace_callback('/<img[^>]+src="([^"]+)"[^>]*>/si',
+            //TD 这个$this好奇怪啊
+            function($matches){
+                return '<img src="' . $this->fixRelativeUrl($matches[1]) . '">';
+            },
+            $html
+        );
+
+        return $html;
     }
 
     function get() {
@@ -61,36 +101,14 @@ class HtmlParser {
                 'desc' => '',
                 'content' => ''
             );
-            $tmpArr['title'] = $item->find($rule['item_title'])[0]->text();
-            $tmpArr['link'] = $item->find($rule['item_link'])[0]->getAttribute('href');
-            $tmpArr['date'] = $item->find($rule['item_date'])[0]->text();
-            $tmpArr['desc'] = $item->find($rule['item_desc'])[0]->html();
+            !empty($rule['item_title']) && $tmpArr['title'] = $item->find($rule['item_title'])[0]->text();
+            !empty($rule['item_link']) && $tmpArr['link'] = $item->find($rule['item_link'])[0]->getAttribute('href');
+            !empty($rule['item_date']) && $tmpArr['date'] = $item->find($rule['item_date'])[0]->text();
+            !empty($rule['item_desc']) && $tmpArr['desc'] = $item->find($rule['item_desc'])[0]->html();
 
             // complete relative url
-            if (stripos($tmpArr['link'], 'http') !== 0) {
-                if (stripos($tmpArr['link'], '/') === 0) {
-                    // root path
-                    // echo $tmpArr['link'] . '<br>';///
-                    $tmpArr['link'] = preg_replace("/^(https?:\/\/[^\/]+)\/\S*/si",
-                        '${1}' . $tmpArr['link'],
-                        $this->url
-                    );
-                    // echo $tmpArr['link'] . '<br>';///
-                }
-                else {
-                    // current path
-                    //!!! 不处理./和../
-                    if (substr($this->url, -1) === '/') {
-                        $tmpArr['link'] = $this->url . $tmpArr['link'];
-                    }
-                    else {
-                        $aUrl = explode('/', $this->url);
-                        array_pop($aUrl);
-                        array_push($aUrl, $tmpArr['link']);
-                        $tmpArr['link'] = implode('/', $aUrl);
-                    }
-                }
-            }
+            $tmpArr['desc'] = $this->convertImgSrc($tmpArr['desc']);
+            $tmpArr['link'] = $this->fixRelativeUrl($tmpArr['link']);
 
             array_push($res['items'], $tmpArr);
             if (count($res['items']) >= self::LIST_LENGTH) {

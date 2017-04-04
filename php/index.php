@@ -18,17 +18,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     );
     $blogs = array(
         // rss
-        array('name'=>'奇舞团', 'type'=>'rss', 'url'=>'http://www.75team.com/rss.html'),
+        array('name'=>'奇舞团', 'type'=>'rss', 'url'=>'https://www.75team.com/rss.html'),
 
         // html
         array('name'=>'alinode', 'type'=>'html', 'url'=>'http://alinode.aliyun.com/blog')
     );
     $weeklys = array(
-        // html
-        array('name'=>'FEX周刊', 'type'=>'html', 'url'=>'http://fex.baidu.com/weekly/'),
-
         // rss
-        array('name'=>'奇舞周刊', 'type'=>'rss', 'url'=>'http://www.75team.com/weekly/rss.php')
+        array('name'=>'奇舞周刊', 'type'=>'rss', 'url'=>'https://weekly.75team.com/rss.php'),
+
+        // html
+        array('name'=>'FEX周刊', 'type'=>'html', 'url'=>'http://fex.baidu.com/weekly/')
     );
     $jokes = array(
         // html

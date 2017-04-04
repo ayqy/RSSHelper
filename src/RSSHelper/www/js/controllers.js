@@ -182,8 +182,20 @@ angular.module('rsshelper.controllers', [])
                 UIServ.loading(false);
             });
         }
-        // else if
-        // ...暂无html周刊源
+        else if (weekly.type === 'html') {
+            DataServ.html(weekly.url, function(oData) {
+                $scope.data = oData;
+
+                $scope.str2html = $rootScope.str2html;
+                // 不转换日期格式
+                $scope.dateFormat = function(dateString) {
+                    return dateString;
+                };
+
+                // 隐藏loading
+                UIServ.loading(false);
+            });
+        }
         
         $scope.onItemClicked = function(item, index) {
             if (item.content === '') {

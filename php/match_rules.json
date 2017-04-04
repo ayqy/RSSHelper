@@ -54,5 +54,13 @@
         "item_date": ".post-metadata",
         "item_desc": ".post-body",
         "item_content": ""
+    },
+    "http://fex.baidu.com/weekly/": {
+        "list": ".post-list li",
+        "item_title": "a p",
+        "item_link": "a",
+        "item_date": ".date",
+        "item_desc": ".bnwrap",
+        "item_content": ""
     }
 }

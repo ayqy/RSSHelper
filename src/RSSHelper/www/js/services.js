@@ -119,7 +119,7 @@ console.log('open ' + sUrl);
             iExpire: iExpire
         };
         if (_oCache.sState === 'OFF') {
-console.log('no data, catch data now');
+console.log('no data, fetch data now');
             _oCache.sState = 'ON';
             // 请求数据
             $http.jsonp(sUrl).success(function(res){
@@ -159,12 +159,14 @@ console.log(_oCache.oData);
     
     function getIndex(fCallback) {
         var sUrl = 'http://www.ayqy.net/app/rsshelper/index.php';
+        // var sUrl = 'http://192.168.1.111/RSSHelper/php/index.php';
         // 首页列表缓存24小时
         jsonp(sUrl, fCallback, null, Date.now() + 1000 * 60 * 60 * 24);
     }
 
     function getRss(sUrl, fCallback) {
         var _sUrl = 'http://www.ayqy.net/app/rsshelper/rss.php';
+        // var _sUrl = 'http://192.168.1.111/RSSHelper/php/rss.php';
         // rss缓存4小时
         jsonp(_sUrl, fCallback, {
             url: sUrl
@@ -173,6 +175,7 @@ console.log(_oCache.oData);
 
     function getHtml(sUrl, fCallback) {
         var _sUrl = 'http://www.ayqy.net/app/rsshelper/html.php';
+        // var _sUrl = 'http://192.168.1.111/RSSHelper/php/html.php';
         jsonp(_sUrl, fCallback, {
             url: sUrl
         });
