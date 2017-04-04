@@ -2,7 +2,14 @@
 
 angular.module('rsshelper', ['ionic', 'rsshelper.controllers', 'rsshelper.services'])
 
-.run(['$rootScope', function($rootScope) {
+// reinit controller after refresh
+.run(['$ionicPlatform', '$rootScope', '$ionicHistory', function($ionicPlatform, $rootScope, $ionicHistory) {
+   $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams){
+      $ionicHistory.clearCache();
+   });
+}])
+
+.run(['$rootScope', '$sce', function($rootScope, $sce) {
     ionic.Platform.ready(function() {
         // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
         // for form inputs)
@@ -17,11 +24,20 @@ angular.module('rsshelper', ['ionic', 'rsshelper.controllers', 'rsshelper.servic
 
         // init
         $rootScope.isLoading = false;
+        $rootScope.enableShare = false; // 只有内容页支持分享
         // hide splash immediately
         if(navigator && navigator.splashscreen) {
             navigator.splashscreen.hide();
         }
     });
+
+    // 工具函数
+    $rootScope.str2html = function(s) {
+        return $sce.trustAsHtml(s);
+    };
+    $rootScope.dateFormat = function(dateString) {
+        return new Date(dateString).toLocaleString();
+    };
 }])
 
 .config(['$stateProvider', '$urlRouterProvider', '$ionicConfigProvider',
@@ -41,6 +57,7 @@ angular.module('rsshelper', ['ionic', 'rsshelper.controllers', 'rsshelper.servic
 
     $ionicConfigProvider.platform.ios.views.transition('ios');
     $ionicConfigProvider.platform.android.views.transition('android');
+    
 
     // router
     $stateProvider.state('tab', {
@@ -49,55 +66,58 @@ angular.module('rsshelper', ['ionic', 'rsshelper.controllers', 'rsshelper.servic
         templateUrl: 'templates/tabs.html'
     })
     .state('tab.master', {
-        url: '/master',
+        url: '/masters?cate',
         views: {
-            'tab-master': {
-                templateUrl: 'templates/tab-master.html',
+            'tab-masters': {
+                templateUrl: 'templates/tab-masters.html',
                 controller: 'TabCtrl'
             }
         }
     })
     .state('tab.master-list', {
-        url: '/master/:masterId',
+        url: '/masters/:listId?cate',
         views: {
-            'tab-master': {
-                templateUrl: 'templates/master-list.html',
+            'tab-masters': {
+                templateUrl: 'templates/masters-list.html',
                 controller: 'MasterListCtrl'
             }
         }
     })
     .state('tab.master-list-article', {
-        url: '/master/article/:dataKey',
+        url: '/masters/:listId/:itemId?cate',
         views: {
-            'tab-master': {
+            'tab-masters': {
                 templateUrl: 'templates/article-content.html',
                 controller: 'ArticleContentCtrl'
             }
         }
     })
 
+
+
+
     .state('tab.blog', {
-        url: '/blog',
+        url: '/blogs?cate',
         views: {
-            'tab-blog': {
-                templateUrl: 'templates/tab-blog.html',
+            'tab-blogs': {
+                templateUrl: 'templates/tab-blogs.html',
                 controller: 'TabCtrl'
             }
         }
     })
     .state('tab.blog-list', {
-        url: '/blog/:blogId',
+        url: '/blogs/:listId?cate',
         views: {
-            'tab-blog': {
-                templateUrl: 'templates/blog-list.html',
+            'tab-blogs': {
+                templateUrl: 'templates/blogs-list.html',
                 controller: 'BlogListCtrl'
             }
         }
     })
     .state('tab.blog-list-article', {
-        url: '/blog/article/:dataKey',
+        url: '/blogs/:listId/:itemId?cate',
         views: {
-            'tab-blog': {
+            'tab-blogs': {
                 templateUrl: 'templates/article-content.html',
                 controller: 'ArticleContentCtrl'
             }
@@ -105,27 +125,27 @@ angular.module('rsshelper', ['ionic', 'rsshelper.controllers', 'rsshelper.servic
     })
 
     .state('tab.weekly', {
-        url: '/weekly',
+        url: '/weeklys?cate',
         views: {
-            'tab-weekly': {
-                templateUrl: 'templates/tab-weekly.html',
+            'tab-weeklys': {
+                templateUrl: 'templates/tab-weeklys.html',
                 controller: 'TabCtrl'
             }
         }
     })
     .state('tab.weekly-list', {
-        url: '/weekly/:weeklyId',
+        url: '/weeklys/:listId?cate',
         views: {
-            'tab-weekly': {
-                templateUrl: 'templates/weekly-list.html',
+            'tab-weeklys': {
+                templateUrl: 'templates/weeklys-list.html',
                 controller: 'WeeklyListCtrl'
             }
         }
     })
     .state('tab.weekly-list-article', {
-        url: '/weekly/article/:dataKey',
+        url: '/weeklys/listId/:itemId?cate',
         views: {
-            'tab-weekly': {
+            'tab-weeklys': {
                 templateUrl: 'templates/article-content.html',
                 controller: 'ArticleContentCtrl'
             }
@@ -133,25 +153,25 @@ angular.module('rsshelper', ['ionic', 'rsshelper.controllers', 'rsshelper.servic
     })
 
     .state('tab.joke', {
-        url: '/joke',
+        url: '/jokes?cate',
         views: {
-            'tab-joke': {
-                templateUrl: 'templates/tab-joke.html',
+            'tab-jokes': {
+                templateUrl: 'templates/tab-jokes.html',
                 controller: 'TabCtrl'
             }
         }
     })
     .state('tab.joke-list', {
-        url: '/joke/:jokeId',
+        url: '/jokes/:listId?cate',
         views: {
-            'tab-joke': {
-                templateUrl: 'templates/joke-list.html',
+            'tab-jokes': {
+                templateUrl: 'templates/jokes-list.html',
                 controller: 'JokeListCtrl'
             }
         }
     });
 
     // if none of the above states are matched, use this as the fallback
-    $urlRouterProvider.otherwise('/tab/master');
+    $urlRouterProvider.otherwise('/tab/masters?cate=masters');
 
 }]);

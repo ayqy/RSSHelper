@@ -3,7 +3,7 @@
 
     <ion-content overflow-scroll="false" has-bouncing="true" class="stable-bg">
         <ion-list>
-            <ion-item ng-repeat="item in data" ng-click="openInnerUrl('/tab/blog/' + $index)"><span>{{item.name}}</span></ion-item>
+            <ion-item ng-repeat="item in data" ng-click="onItemClicked($index)"><span>{{item.name}}</span></ion-item>
         </ion-list>
     </ion-content>
 </ion-view>

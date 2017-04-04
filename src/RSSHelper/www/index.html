@@ -54,12 +54,14 @@
         <ion-side-menu-content drag-content="true">
             
             <!-- 顶部导航条 -->
-            <ion-nav-bar class="bar-positive" align-title="left">
+            <ion-nav-bar ng-controller="NavBarCtrl" class="bar-positive" align-title="left">
                 <!-- 返回按钮 -->
                 <ion-nav-back-button class="button-clear"></ion-nav-back-button>
                 <ion-nav-buttons side="right">
                     <ion-spinner ng-hide="isLoading === false" icon="ios" class="spinner-light">
-                </ion-spinner></ion-nav-buttons>
+                    </ion-spinner>
+                    <span ng-show="enableShare === true" ng-click="$root.share($root.articleUrl)" class="button"><i class="icon icon-sm ion-share"></i></span>
+                </ion-nav-buttons>
             </ion-nav-bar>
             
             <!-- 内容 -->

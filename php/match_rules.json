@@ -1,9 +1,9 @@
 {
     "http://m.pengfu.com/": {
         "list": ".post-line-list .list-item",
-        "item_title": ".head-name h1",
-        "item_link": ".head-name h1 a",
-        "item_date": ".head-name p",
+        "item_title": ".humorListTitle h1",
+        "item_link": ".humorListTitle h1 a",
+        "item_date": ".head-name .dp-i-b",
         "item_desc": ".con-img",
         "item_content": ""
     },
@@ -53,6 +53,14 @@
         "item_link": ".post-title a",
         "item_date": ".post-metadata",
         "item_desc": ".post-body",
+        "item_content": ""
+    },
+    "http://fex.baidu.com/weekly/": {
+        "list": ".post-list li",
+        "item_title": "a p",
+        "item_link": "a",
+        "item_date": ".date",
+        "item_desc": ".bnwrap",
         "item_content": ""
     }
 }
