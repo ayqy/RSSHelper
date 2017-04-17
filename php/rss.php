@@ -24,5 +24,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         $res = $_GET['callback'].'('.json_encode($res).')';
         echo $res;
     }
+    else {
+        echo json_encode($res);
+    }
 }
 ?>
