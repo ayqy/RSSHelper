@@ -1,0 +1,75 @@
+{
+    "masters": [
+        {
+            "name": "barretlee",
+            "type": "rss",
+            "url": "http://www.barretlee.com/rss2.xml"
+        },
+        {
+            "name": "张鑫旭",
+            "type": "rss",
+            "url": "http://www.zhangxinxu.com/wordpress/feed/"
+        },
+        {
+            "name": "十年踪迹",
+            "type": "rss",
+            "url": "https://www.h5jun.com/rss.html"
+        },
+        {
+            "name": "白树",
+            "type": "html",
+            "url": "http://www.cnblogs.com/PeunZhang/"
+        },
+        {
+            "name": "叶小钗",
+            "type": "html",
+            "url": "http://www.cnblogs.com/yexiaochai/"
+        },
+        {
+            "name": "vajoy",
+            "type": "html",
+            "url": "http://www.cnblogs.com/vajoy/"
+        },
+        {
+            "name": "空智",
+            "type": "html",
+            "url": "http://www.cnblogs.com/tugenhua0707/"
+        },
+        {
+            "name": "Samaritans",
+            "type": "html",
+            "url": "http://www.cnblogs.com/dolphinX/"
+        }
+    ],
+    "blogs": [
+        {
+            "name": "奇舞团",
+            "type": "rss",
+            "url": "https://www.75team.com/rss.html"
+        },
+        {
+            "name": "alinode",
+            "type": "html",
+            "url": "http://alinode.aliyun.com/blog"
+        }
+    ],
+    "weeklys": [
+        {
+            "name": "奇舞周刊",
+            "type": "rss",
+            "url": "https://weekly.75team.com/rss.php"
+        },
+        {
+            "name": "FEX周刊",
+            "type": "rss",
+            "url": "http://fex.baidu.com/feed.xml"
+        }
+    ],
+    "jokes": [
+        {
+            "name": "捧腹笑话",
+            "type": "html",
+            "url": "http://m.pengfu.com/"
+        }
+    ]
+}
