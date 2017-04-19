@@ -1,0 +1,66 @@
+{
+    "http://m.pengfu.com/": {
+        "list": ".post-line-list .list-item",
+        "item_title": ".humorListTitle h1",
+        "item_link": ".humorListTitle h1 a",
+        "item_date": ".head-name .dp-i-b",
+        "item_desc": ".con-img",
+        "item_content": ""
+    },
+    "http://www.cnblogs.com/PeunZhang/": {
+        "list": "#mainContent .day",
+        "item_title": ".postTitle a",
+        "item_link": ".postTitle a",
+        "item_date": ".postDesc",
+        "item_desc": ".c_b_p_desc",
+        "item_content": ""
+    },
+    "http://www.cnblogs.com/yexiaochai/": {
+        "list": "#centercontent .day",
+        "item_title": ".postTitle a",
+        "item_link": ".postTitle a",
+        "item_date": ".postDesc",
+        "item_desc": ".c_b_p_desc",
+        "item_content": ""
+    },
+    "http://www.cnblogs.com/vajoy/": {
+        "list": "#mainContent .day",
+        "item_title": ".postTitle a",
+        "item_link": ".postTitle a",
+        "item_date": ".postDesc",
+        "item_desc": ".c_b_p_desc",
+        "item_content": ""
+    },
+    "http://www.cnblogs.com/dolphinX/": {
+        "list": "#mainContent .day",
+        "item_title": ".postTitle a",
+        "item_link": ".postTitle a",
+        "item_date": ".postDesc",
+        "item_desc": ".c_b_p_desc",
+        "item_content": ""
+    },
+    "http://www.cnblogs.com/tugenhua0707/": {
+        "list": "#content .post-list-item",
+        "item_title": "h2 a",
+        "item_link": "h2 a",
+        "item_date": "small",
+        "item_desc": ".c_b_p_desc",
+        "item_content": ""
+    },
+    "http://alinode.aliyun.com/blog": {
+        "list": "#content article.post",
+        "item_title": ".post-title a",
+        "item_link": ".post-title a",
+        "item_date": ".post-metadata",
+        "item_desc": ".post-body",
+        "item_content": ""
+    },
+    "http://fex.baidu.com/weekly/": {
+        "list": ".post-list li",
+        "item_title": "a p",
+        "item_link": "a",
+        "item_date": ".date",
+        "item_desc": ".bnwrap",
+        "item_content": ""
+    }
+}

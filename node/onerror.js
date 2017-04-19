@@ -1,16 +1,17 @@
-// 中间件错误捕获
+// 中间件全局错误捕获
 
-module.exports = (ctx, next) => {
+module.exports = async (ctx, next) => {
     const callback = ctx.query.callback;
 
-    if (ctx.state.error) {
+    try {
+        await next();
+    } catch (err) {
+        err.status = err.statusCode || err.status || 500;
         let errBody = JSON.stringify({
             code: -1,
-            data: ctx.state.error.message
+            data: err.message
         });
         if (callback) errBody = callback + '(' + errBody + ')';
         ctx.body = errBody;
     }
-
-    next();
 };
