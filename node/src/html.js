@@ -31,11 +31,11 @@ module.exports = async (ctx, next) => {
             $list && $list.each(function(i, el) {
                 if (i > POST_COUNT - 1) return;
                 items.push({
-                    title:  $(this).find(rule['item_title']).html(),
-                    link: $(this).find(rule['item_link']).html(),
-                    date: $(this).find(rule['item_date']).html(),
-                    desc: $(this).find(rule['item_desc']).html(),
-                    content: $(this).find(rule['item_content']).html()
+                    title:  $(this).find(rule['item_title']).text() || '',
+                    link: $(this).find(rule['item_link']).attr('href') || '',
+                    date: $(this).find(rule['item_date']).text() || '',
+                    desc: $(this).find(rule['item_desc']).html() || '',
+                    content: $(this).find(rule['item_content']).html() || ''
                 });
             });
 
