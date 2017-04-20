@@ -40,7 +40,7 @@ module.exports = async (ctx, next) => {
             });
 
             ctx.state.data = {
-                title: $('title').text()
+                title: $('title').text(),
                 items: items
             };
             resolve();
