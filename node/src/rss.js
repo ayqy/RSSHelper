@@ -3,12 +3,17 @@
 const FeedParser = require('feedparser');
 const request = require('request');
 
+const deepPath = require('./util/deep_path.js');
+
 
 module.exports = async (ctx, next) => {
     await new Promise((resolve, reject) => {
         const url = ctx.params.url;
         const feedparser = new FeedParser();
-        const req = request(url);
+        const req = request({
+            url: url,
+            timeout: 3600
+        });
 
         // req
         req
@@ -33,7 +38,24 @@ module.exports = async (ctx, next) => {
             })
             .on('end', (error) => {
                 if (error) return reject(error);
-                ctx.state.data = items;
+
+                if (items.length) {
+                    let data = {
+                        title: deepPath(items[0], ['meta', 'title']),
+                        items: []
+                    };
+                    data.items = items.map((item) => {
+                        return {
+                            title: item.title,
+                            link: item.link,
+                            date: item.date,
+                            desc: item.summary,
+                            content: item.description
+                        };
+                    });
+                    ctx.state.data = data;
+                }
+
                 resolve();
             });
     });

@@ -6,15 +6,17 @@ const request = require('request');
 module.exports = async (ctx, next) => {
     await new Promise((resolve, reject) => {
         const url = ctx.params.url;
-        const req = request(url);
+        const req = request({
+            url: url,
+            timeout: 3600
+        });
 
         // parse HTML
         let parse = (html) => {
-            const rules = require('./match_rules.json');
+            const rules = require('./config/match_rules.json');
             const rule = rules[url];
             if (!rule) {
-                console.log('nononon');
-                return ctx.throw('No Matched Rule');
+                return reject(new Error('No Matched Rule'));
             }
 
             const $ = cheerio.load(html, {
