@@ -12,10 +12,10 @@ rss helper
         barretlee
             http://www.barretlee.com/rss2.xml
     page
-        叶小钗
-            http://www.cnblogs.com/yexiaochai/
         vajoy
             http://www.cnblogs.com/vajoy/
+        叶小钗
+            http://www.cnblogs.com/yexiaochai/
         Samaritans
             http://www.cnblogs.com/dolphinX/
 博文
@@ -38,9 +38,6 @@ rss helper
             http://maxdesign.com.au/category/articles/feed/
         SitePoint
             https://www.sitepoint.com/feed/
-    page
-        alinode
-            http://alinode.aliyun.com/blog
 周刊
     feed
         奇舞周刊

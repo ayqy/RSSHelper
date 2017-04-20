@@ -1,29 +1,24 @@
 {
     "masters": [
         {
-            "name": "barretlee",
-            "type": "rss",
-            "url": "http://www.barretlee.com/rss2.xml"
-        },
-        {
             "name": "张鑫旭",
             "type": "rss",
             "url": "http://www.zhangxinxu.com/wordpress/feed/"
         },
         {
-            "name": "十年踪迹",
+            "name": "月影",
             "type": "rss",
             "url": "https://www.h5jun.com/rss.html"
         },
         {
-            "name": "白树",
-            "type": "html",
-            "url": "http://www.cnblogs.com/PeunZhang/"
+            "name": "勾股",
+            "type": "rss",
+            "url": "http://jiongks.name/feed/"
         },
         {
-            "name": "叶小钗",
-            "type": "html",
-            "url": "http://www.cnblogs.com/yexiaochai/"
+            "name": "barretlee",
+            "type": "rss",
+            "url": "http://www.barretlee.com/rss2.xml"
         },
         {
             "name": "vajoy",
@@ -31,9 +26,9 @@
             "url": "http://www.cnblogs.com/vajoy/"
         },
         {
-            "name": "空智",
+            "name": "叶小钗",
             "type": "html",
-            "url": "http://www.cnblogs.com/tugenhua0707/"
+            "url": "http://www.cnblogs.com/yexiaochai/"
         },
         {
             "name": "Samaritans",
@@ -48,9 +43,44 @@
             "url": "https://www.75team.com/rss.html"
         },
         {
-            "name": "alinode",
-            "type": "html",
-            "url": "http://alinode.aliyun.com/blog"
+            "name": "夜雨带刀",
+            "type": "rss",
+            "url": "http://stylechen.com/feed"
+        },
+        {
+            "name": "凹凸实验室",
+            "type": "rss",
+            "url": "https://aotu.io/atom.xml"
+        },
+        {
+            "name": "Taobao FED",
+            "type": "rss",
+            "url": "http://taobaofed.org/atom.xml"
+        },
+        {
+            "name": "NCZOnline",
+            "type": "rss",
+            "url": "http://feeds.feedburner.com/nczonline/"
+        },
+        {
+            "name": "Smashing Magazine",
+            "type": "rss",
+            "url": "https://www.smashingmagazine.com/feed/"
+        },
+        {
+            "name": "CSSS Tricks",
+            "type": "rss",
+            "url": "https://css-tricks.com/feed/"
+        },
+        {
+            "name": "Max Design",
+            "type": "rss",
+            "url": "http://maxdesign.com.au/category/articles/feed/"
+        },
+        {
+            "name": "SitePoint",
+            "type": "rss",
+            "url": "https://www.sitepoint.com/feed/"
         }
     ],
     "weeklys": [
