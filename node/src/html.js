@@ -3,6 +3,8 @@
 const cheerio = require('cheerio');
 const request = require('request');
 
+const POST_COUNT = 10;
+
 module.exports = async (ctx, next) => {
     await new Promise((resolve, reject) => {
         const url = ctx.params.url;
@@ -27,16 +29,20 @@ module.exports = async (ctx, next) => {
             const $list = $(rule['list']);
             let items = [];
             $list && $list.each(function(i, el) {
+                if (i > POST_COUNT - 1) return;
                 items.push({
-                    title:  $(this).find(rule['item_title']).html(),
-                    link: $(this).find(rule['item_link']).html(),
-                    date: $(this).find(rule['item_date']).html(),
-                    desc: $(this).find(rule['item_desc']).html(),
-                    content: $(this).find(rule['item_content']).html()
+                    title:  $(this).find(rule['item_title']).text() || '',
+                    link: $(this).find(rule['item_link']).attr('href') || '',
+                    date: $(this).find(rule['item_date']).text() || '',
+                    desc: $(this).find(rule['item_desc']).html() || '',
+                    content: $(this).find(rule['item_content']).html() || ''
                 });
             });
 
-            ctx.state.data = items;
+            ctx.state.data = {
+                title: $('title').text(),
+                items: items
+            };
             resolve();
         };
 

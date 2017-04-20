@@ -143,7 +143,7 @@ angular.module('rsshelper', ['ionic', 'rsshelper.controllers', 'rsshelper.servic
         }
     })
     .state('tab.weekly-list-article', {
-        url: '/weeklys/listId/:itemId?cate',
+        url: '/weeklys/:listId/:itemId?cate',
         views: {
             'tab-weeklys': {
                 templateUrl: 'templates/article-content.html',
