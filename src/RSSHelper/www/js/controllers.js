@@ -202,7 +202,7 @@ angular.module('rsshelper.controllers', [])
                 UIServ.openUrl(item.link);
             }
             else {
-                UIServ.openInnerUrl('/tab/' + cate + '/' + listId + '/' + index);
+                UIServ.openInnerUrl('/tab/' + cate + '/' + listId + '/' + index, {cate: cate});
             }
         };
     });

@@ -158,27 +158,32 @@ console.log(_oCache.oData);
     }
     
     function getIndex(fCallback) {
-        var sUrl = 'http://www.ayqy.net/app/rsshelper/index.php';
-        // var sUrl = 'http://192.168.1.111/RSSHelper/php/index.php';
+        var sUrl = 'https://node.ayqy.net/index';
+        // var sUrl = 'http://www.ayqy.net/app/rsshelper/index.php';
+        // var sUrl = 'http://127.0.0.1/RSSHelper/php/index.php
         // 首页列表缓存24小时
         jsonp(sUrl, fCallback, null, Date.now() + 1000 * 60 * 60 * 24);
     }
 
     function getRss(sUrl, fCallback) {
-        var _sUrl = 'http://www.ayqy.net/app/rsshelper/rss.php';
-        // var _sUrl = 'http://192.168.1.111/RSSHelper/php/rss.php';
+        var _sUrl = 'https://node.ayqy.net/rss/' + encodeURIComponent(sUrl);
+        // var _sUrl = 'http://www.ayqy.net/app/rsshelper/rss.php';
+        // var _sUrl = 'http://127.0.0.1/RSSHelper/php/rss.php';
         // rss缓存4小时
-        jsonp(_sUrl, fCallback, {
-            url: sUrl
-        }, Date.now() + 1000 * 60 * 60 * 4);
+        // jsonp(_sUrl, fCallback, {
+        //     url: sUrl
+        // }, Date.now() + 1000 * 60 * 60 * 4);
+        jsonp(_sUrl, fCallback, {}, Date.now() + 1000 * 60 * 60 * 4);
     }
 
     function getHtml(sUrl, fCallback) {
-        var _sUrl = 'http://www.ayqy.net/app/rsshelper/html.php';
-        // var _sUrl = 'http://192.168.1.111/RSSHelper/php/html.php';
-        jsonp(_sUrl, fCallback, {
-            url: sUrl
-        });
+        var _sUrl = 'https://node.ayqy.net/html/' + encodeURIComponent(sUrl);
+        // var _sUrl = 'http://www.ayqy.net/app/rsshelper/html.php';
+        // var _sUrl = 'http://127.0.0.1/RSSHelper/php/html.php';
+        // jsonp(_sUrl, fCallback, {
+        //     url: sUrl
+        // });
+        jsonp(_sUrl, fCallback);
     }
 
     // 内存临时字典
