@@ -45,6 +45,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
         echo $res;
     }
+    else {
+        echo json_encode($res);
+    }
 }
 
 ?>

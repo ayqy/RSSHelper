@@ -3,34 +3,50 @@ rss helper
 
 前辈
     feed
-        barretlee
-            http://www.barretlee.com/rss2.xml
         张鑫旭
             http://www.zhangxinxu.com/wordpress/feed/
+        月影
+            https://www.h5jun.com/rss.html
+        勾股
+            http://jiongks.name/feed/
+        barretlee
+            http://www.barretlee.com/rss2.xml
     page
-        白树
-            http://www.cnblogs.com/PeunZhang/
-        叶小钗
-            http://www.cnblogs.com/yexiaochai/
         vajoy
             http://www.cnblogs.com/vajoy/
-        云溪
-            http://www.cnblogs.com/tugenhua0707/
+        叶小钗
+            http://www.cnblogs.com/yexiaochai/
         Samaritans
             http://www.cnblogs.com/dolphinX/
 博文
     feed
         奇舞团
-            http://www.75team.com/feed/
-    page
-        alinode
-            http://alinode.aliyun.com/blog
+            https://www.75team.com/rss.html
+        夜雨带刀
+            http://stylechen.com/feed
+        凹凸实验室
+            https://aotu.io/atom.xml
+        Taobao FED
+            http://taobaofed.org/atom.xml
+        NCZOnline
+            http://feeds.feedburner.com/nczonline/
+        Smashing Magazine
+            https://www.smashingmagazine.com/feed/
+        CSSS Tricks
+            https://css-tricks.com/feed/
+        Max Design
+            http://maxdesign.com.au/category/articles/feed/
+        SitePoint
+            https://www.sitepoint.com/feed/
 周刊
     feed
         奇舞周刊
-            http://www.75team.com/weekly/rss.php
-            http://www.75team.com/weekly/
+            https://weekly.75team.com/rss.php
+        FEX周刊
+            http://fex.baidu.com/feed.xml
+        Max Design Light Reading
+            http://maxdesign.com.au/feed/
 笑话
     page
         捧腹笑话
-            http://m.pengfu.com/zuixin/
+            http://m.pengfu.com/
