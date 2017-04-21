@@ -87,7 +87,9 @@ let rss = (url, onsuccess, onerror) => {
                         title: item.title,
                         link: item.link,
                         date: item.date,
-                        desc: item.summary,
+                        desc: item.summary && item.summary
+                            .replace(/<[^>]+>/g, '').substr(0, 150)
+                            .replace(/\n/g, '<br>'),
                         content: item.description
                     };
                 });
