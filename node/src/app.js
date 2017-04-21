@@ -9,6 +9,8 @@ const onerror = require('./onerror.js');
 
 const PORT = 7777;
 
+// fix DNS timeout
+process.env.UV_THREADPOOL_SIZE = 128;
 
 let app = new Koa();
 let router = new Router();

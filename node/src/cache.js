@@ -60,16 +60,16 @@ let cache = {
         });
     },
     clearQueue: () => {
-        if (!queue.length) return;
+        if (!cache.queue.length) return;
         if (client) {
-            let q = queue.slice();
-            queue = [];
+            let q = cache.queue.slice();
+            cache.queue = [];
             q.forEach((op) => {
                 op();
             });
         }
         else {
-            queue = [];
+            cache.queue = [];
             console.error('redis client does not exists');
         }
     }

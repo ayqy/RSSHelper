@@ -1,6 +1,6 @@
 // schedule to cache data
 
-const shedule = require('node-schedule');
+const schedule = require('node-schedule');
 const cacheService = require('./cache_service.js');
 
 let job;

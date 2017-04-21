@@ -10,7 +10,7 @@ const cache = require('./cache.js');
 const deepPath = require('./util/deep_path.js');
 
 const POST_COUNT = 10;
-const TIMEOUT = 3600;
+const TIMEOUT = 9000;
 
 let fetch = (type, url, noCache) => {
     // event bus for one fetch
@@ -20,7 +20,7 @@ let fetch = (type, url, noCache) => {
     };
     let onsuccess = (data) => {
         emitter.emit('success', data);
-        cache.set(url, data);
+        data && cache.set(url, data);
     };
     let fetchNow = () => {
         if (type === 'rss') {
@@ -31,10 +31,11 @@ let fetch = (type, url, noCache) => {
         }
     };
     if (noCache) {
+        console.log('schedule force fetch now');
         fetchNow();
     }
     else {
-        cache.get(url, (data) {
+        cache.get(url, (data) => {
             if (data) emitter.emit('success', data);
             else fetchNow();
         });
@@ -46,7 +47,8 @@ let rss = (url, onsuccess, onerror) => {
     const req = request({
         url: url,
         timeout: TIMEOUT
-    });
+    }, (error) => {if (error) onerror(error)});
+    const feedparser = new FeedParser();
 
     // req
     req
@@ -66,7 +68,7 @@ let rss = (url, onsuccess, onerror) => {
         .on('readable', function() {
             let item;
             while (item = this.read()) {
-                if (item.length < POST_COUNT) {
+                if (items.length < POST_COUNT) {
                     items.push(item);
                 }
             }
@@ -74,8 +76,9 @@ let rss = (url, onsuccess, onerror) => {
         .on('end', (error) => {
             if (error) return onerror(error);
 
+            let data;
             if (items.length) {
-                let data = {
+                data = {
                     title: deepPath(items[0], ['meta', 'title']),
                     items: []
                 };
@@ -97,7 +100,7 @@ let html = (url, onsuccess, onerror) => {
     const req = request({
         url: url,
         timeout: TIMEOUT
-    });
+    }, (error) => {if (error) onerror(error)});
 
     // req
     let bufs = [], len = 0;

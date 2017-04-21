@@ -1,6 +1,6 @@
 // cache service for schedule
 
-const fetch = ('./fetch.js');
+const fetch = require('./fetch.js');
 
 const index = require('./config/index.json');
 
