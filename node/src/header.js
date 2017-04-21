@@ -1,4 +1,4 @@
-// 设置header
+// set headers
 
 module.exports = (ctx, next) => {
     const headers = {

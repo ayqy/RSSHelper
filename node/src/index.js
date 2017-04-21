@@ -1,4 +1,4 @@
-// 路由处理 /index
+// route /index
 
 module.exports = (ctx, next) => {
     const index = require('./config/index.json');

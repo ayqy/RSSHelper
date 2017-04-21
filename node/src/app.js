@@ -1,6 +1,8 @@
 const Koa = require('koa');
 const Router = require('koa-router');
 
+const schedule = require('./schedule.js');
+
 const header = require('./header.js');
 const json = require('./json.js');
 const onerror = require('./onerror.js');
@@ -45,3 +47,5 @@ app.on('error', (err, ctx) => {
 // startup
 app.listen(PORT);
 console.log('listening ' + PORT);
+schedule.start();
+console.log('schedule task started');
