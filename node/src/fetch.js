@@ -12,7 +12,7 @@ const deepPath = require('./util/deep_path.js');
 const POST_COUNT = 10;
 const TIMEOUT = 3600;
 
-let fetch = (type, url) => {
+let fetch = (type, url, noCache) => {
     // event bus for one fetch
     let emitter = new events.EventEmitter();
     let onerror = (error) => {
@@ -22,17 +22,23 @@ let fetch = (type, url) => {
         emitter.emit('success', data);
         cache.set(url, data);
     };
-    cache.get(url, (data) {
-        if (data) emitter.emit('success', data);
-        else {
-            if (type === 'rss') {
-                rss(url, onsuccess, onerror);
-            }
-            else if (type === 'html') {
-                html(url, onsuccess, onerror);
-            }
+    let fetchNow = () => {
+        if (type === 'rss') {
+            rss(url, onsuccess, onerror);
         }
-    });
+        else if (type === 'html') {
+            html(url, onsuccess, onerror);
+        }
+    };
+    if (noCache) {
+        fetchNow();
+    }
+    else {
+        cache.get(url, (data) {
+            if (data) emitter.emit('success', data);
+            else fetchNow();
+        });
+    }
 
     return emitter;
 };
