@@ -6,8 +6,8 @@ const request = require('request');
 const FeedParser = require('feedparser');
 const cheerio = require('cheerio');
 
-const cache = require('./cache.js');
-const deepPath = require('./util/deep_path.js');
+const cache = require('../cache/cache.js');
+const deepPath = require('../util/deep_path.js');
 
 const POST_COUNT = 10;
 const TIMEOUT = 10000;

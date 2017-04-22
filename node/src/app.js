@@ -3,9 +3,9 @@ const Router = require('koa-router');
 
 const schedule = require('./schedule.js');
 
-const header = require('./header.js');
-const json = require('./json.js');
-const onerror = require('./onerror.js');
+const header = require('./middleware/header.js');
+const json = require('./middleware/json.js');
+const onerror = require('./middleware/onerror.js');
 
 const PORT = 7777;
 
@@ -28,9 +28,9 @@ router
     .get('/', function (ctx, next) {
         ctx.body = 'RSSHelper';
     })
-    .get('/index', require('./index.js'))
-    .get('/rss/:url', require('./rss.js'))
-    .get('/html/:url', require('./html.js'))
+    .get('/index', require('./route/index.js'))
+    .get('/rss/:url', require('./route/rss.js'))
+    .get('/html/:url', require('./route/html.js'))
 app
     .use(router.routes())
     .use(router.allowedMethods())

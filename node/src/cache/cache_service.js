@@ -1,8 +1,8 @@
 // cache service for schedule
 
-const fetch = require('./fetch.js');
+const fetch = require('../fetch/fetch.js');
 
-const index = require('./config/index.json');
+const index = require('../config/index.json');
 
 // cache data
 let cache = function() {
