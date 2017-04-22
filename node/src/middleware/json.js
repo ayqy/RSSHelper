@@ -1,4 +1,4 @@
-// 响应前把数据转JSON
+// convert data to JSON
 
 module.exports = (ctx, next) => {
     const data = ctx.state.data;

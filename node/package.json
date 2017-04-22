@@ -13,6 +13,8 @@
     "feedparser": "^2.2.0",
     "koa": "^2.2.0",
     "koa-router": "^7.1.1",
+    "node-schedule": "^1.2.1",
+    "redis": "^2.7.1",
     "request": "^2.81.0"
   }
 }

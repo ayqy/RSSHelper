@@ -32,7 +32,7 @@ rss helper
             http://feeds.feedburner.com/nczonline/
         Smashing Magazine
             https://www.smashingmagazine.com/feed/
-        CSSS Tricks
+        CSS Tricks
             https://css-tricks.com/feed/
         Max Design
             http://maxdesign.com.au/category/articles/feed/

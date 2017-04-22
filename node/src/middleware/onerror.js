@@ -1,4 +1,4 @@
-// 中间件全局错误捕获
+// global error handling for middlewares
 
 module.exports = async (ctx, next) => {
     const callback = ctx.query.callback;
