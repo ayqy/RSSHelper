@@ -12,10 +12,15 @@ const PORT = 7777;
 // fix DNS timeout
 process.env.UV_THREADPOOL_SIZE = 128;
 
+// global catch
+process.on('uncaughtException', (error) => {
+    console.error('uncaughtException ' + error);
+});
+
 let app = new Koa();
 let router = new Router();
 
-// 中间件错误全局捕获
+// global catch for middles error
 app.use(onerror);
 
 // router
