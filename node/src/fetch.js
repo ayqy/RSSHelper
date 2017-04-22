@@ -22,6 +22,9 @@ let fetch = (type, url, noCache) => {
         emitter.emit('success', data);
         data && cache.set(url, data);
     };
+    let oncancel = (reason) => {
+        emitter.emit('cancel', reason);
+    };
     let fetchNow = () => {
         if (type === 'rss') {
             rss(url, onsuccess, onerror);
@@ -35,6 +38,9 @@ let fetch = (type, url, noCache) => {
             if (!fresh) {
                 console.log('schedule force fetch now');
                 fetchNow();
+            }
+            else {
+                oncancel('cache is still fresh now');
             }
         });
     }

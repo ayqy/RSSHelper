@@ -8,7 +8,16 @@ const index = require('./config/index.json');
 let cache = function() {
     for (let cate in index) {
         index[cate].forEach((item) => {
-            fetch(item.type, item.url, true);
+            fetch(item.type, item.url, true)
+                .on('error', (error) => {
+                    console.error('CacheService fetch error ' + error.message);
+                })
+                .on('success', (data) => {
+                    console.log('CacheService cached ' + item.url);
+                })
+                .on('cancel', (reason) => {
+                    console.log('CacheService fetch cancel ' + reason);
+                })
         });
     }
 };
