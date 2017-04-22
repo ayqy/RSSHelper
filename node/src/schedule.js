@@ -8,6 +8,7 @@ module.exports = {
     start: () => {
         // every 2 hours
         job = schedule.scheduleJob('* */2 * * *', function() {
+            console.log('schedule job triggered');
             cacheService.run();
         });
     },

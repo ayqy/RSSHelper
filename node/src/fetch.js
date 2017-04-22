@@ -10,7 +10,7 @@ const cache = require('./cache.js');
 const deepPath = require('./util/deep_path.js');
 
 const POST_COUNT = 10;
-const TIMEOUT = 9000;
+const TIMEOUT = 10000;
 
 let fetch = (type, url, noCache) => {
     // event bus for one fetch
@@ -31,12 +31,19 @@ let fetch = (type, url, noCache) => {
         }
     };
     if (noCache) {
-        console.log('schedule force fetch now');
-        fetchNow();
+        cache.checkFresh(url, (fresh) => {
+            if (!fresh) {
+                console.log('schedule force fetch now');
+                fetchNow();
+            }
+        });
     }
     else {
         cache.get(url, (data) => {
-            if (data) emitter.emit('success', data);
+            if (data) {
+                emitter.emit('success', data);
+                console.log('fetch from cache');
+            }
             else fetchNow();
         });
     }
@@ -88,8 +95,9 @@ let rss = (url, onsuccess, onerror) => {
                         link: item.link,
                         date: item.date,
                         desc: item.summary && item.summary
-                            .replace(/<[^>]+>/g, '').substr(0, 150)
-                            .replace(/\n/g, '<br>'),
+                            .substr(0, 300)
+                            .replace(/<[^>]+>/g, '')
+                            .replace(/\n+/g, '<br>') + '...',
                         content: item.description
                     };
                 });

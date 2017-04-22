@@ -2,6 +2,9 @@
 
 const redis = require('redis');
 
+// 2 hours
+const EXPIRE = 2 * 60 * 60;
+
 const PORT = 6379;
 const HOST = '127.0.0.1';
 const PWD = 'jiajiejie';
@@ -42,6 +45,7 @@ let cache = {
             return console.error(ex.message);
         }
         client.set(url, data, callback);
+        cache.expire(url);
     },
     get: (url, callback) => {
         //! get do NOT queue
@@ -49,7 +53,11 @@ let cache = {
             process.nextTick(callback);
             return;
         }
-        client.get(url, (json) => {
+        client.get(url, (error, json) => {
+            if (error) {
+                process.nextTick(callback);
+                return;
+            }
             let data;
             try {
                 data = JSON.parse(json);
@@ -57,6 +65,20 @@ let cache = {
                 return console.error(ex.message);
             }
             callback(data);
+        });
+    },
+    expire: (url, expire) => {
+        client.expire(url, expire || EXPIRE);
+    },
+    ttl: (url, callback) => {
+        client.expire(url, (error, ttl) => {
+            if (error) ttl = 0;
+            callback(ttl);
+        });
+    },
+    checkFresh: (url, callback) => {
+        cache.ttl(url, (ttl) => {
+            callback(ttl > EXPIRE / 2);
         });
     },
     clearQueue: () => {
