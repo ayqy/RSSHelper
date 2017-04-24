@@ -138,7 +138,7 @@ let html = (url, onsuccess, onerror) => {
         });
     // parse HTML
     let parse = (html) => {
-        const rules = require('./config/match_rules.json');
+        const rules = require('../config/match_rules.json');
         const rule = rules[url];
         if (!rule) {
             return onerror(new Error('No Matched Rule'));
