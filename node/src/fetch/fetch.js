@@ -101,8 +101,8 @@ let rss = (url, onsuccess, onerror) => {
                         link: item.link,
                         date: item.date,
                         desc: item.summary && item.summary
-                            .substr(0, 300)
                             .replace(/<[^>]+>/g, '')
+                            .substr(0, 200)
                             .replace(/\n+/g, '<br>') + '...',
                         content: item.description
                     };
