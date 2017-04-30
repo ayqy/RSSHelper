@@ -3,7 +3,7 @@ const http = require('http');
 const url = require('url');
 
 
-let fetchImage = function(sUrl, onsuccess, method, onerror) {
+let fetchImage = (sUrl, onsuccess, method, onerror) => {
     const urlData = url.parse(sUrl);
     const options = {
         port: urlData.port || 80,
@@ -16,19 +16,19 @@ let fetchImage = function(sUrl, onsuccess, method, onerror) {
     request.end();
 
     request
-        .on('response', function(response) {
+        .on('response', (response) => {
             const type = response.headers["content-type"];
             let body = '';
 
             response.setEncoding('binary');
-            response.on('end', function() {
+            response.on('end', () => {
                 let data = {
                     type: type,
                     body: body
                 };
                 typeof onsuccess === 'function' && onsuccess(data);
             });
-            response.on('data', function(chunk) {
+            response.on('data', (chunk) => {
                 body += chunk;
             });
         })

@@ -21,7 +21,7 @@ client
         console.error('REDIS CONNECTION FAILED');
         console.error(error.message);
     })
-    .on('ready', function(res) {
+    .on('ready', (res) => {
         ready = true;
         cache.clearQueue();
         console.info('redis connected');
