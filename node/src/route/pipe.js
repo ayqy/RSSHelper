@@ -36,7 +36,7 @@ let fetchImage = function(sUrl, onsuccess, method, onerror) {
 };
 
 
-module.exports = (ctx, next) => {
+module.exports = async (ctx, next) => {
     // native req, res
     const req = ctx.req;
     const res = ctx.res;
