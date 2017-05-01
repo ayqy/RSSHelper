@@ -1,11 +1,10 @@
 // cache service for schedule
 
 const fetch = require('../fetch/fetch.js');
-
 const index = require('../config/index.json');
 
 // cache data
-let cache = function() {
+let cache = () => {
     for (let cate in index) {
         index[cate].forEach((item) => {
             fetch(item.type, item.url, true)
@@ -24,7 +23,5 @@ let cache = function() {
 
 
 module.exports = {
-    run: () => {
-        cache();
-    }
+    run: cache
 };

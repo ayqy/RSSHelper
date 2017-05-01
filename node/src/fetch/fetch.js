@@ -101,9 +101,9 @@ let rss = (url, onsuccess, onerror) => {
                         link: item.link,
                         date: item.date,
                         desc: item.summary && item.summary
-                            .substr(0, 300)
                             .replace(/<[^>]+>/g, '')
-                            .replace(/\n+/g, '<br>') + '...',
+                            .substr(0, 100)
+                            .replace(/\n+/g, ' ') + '...',
                         content: item.description
                     };
                 });
@@ -138,7 +138,7 @@ let html = (url, onsuccess, onerror) => {
         });
     // parse HTML
     let parse = (html) => {
-        const rules = require('./config/match_rules.json');
+        const rules = require('../config/match_rules.json');
         const rule = rules[url];
         if (!rule) {
             return onerror(new Error('No Matched Rule'));

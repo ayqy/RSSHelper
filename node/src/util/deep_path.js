@@ -4,10 +4,10 @@
  *      获取a.b.c.d[0]    deepPath(a,['b','c','d',0]);
  * */
 module.exports = (obj, path) => {
-    var target = obj;
-    var n = path.length;
+    let target = obj;
+    const n = path.length;
     if (n > 0) {
-        for (var i = 0; i < n; i++) {
+        for (let i = 0; i < n; i++) {
             if ('object' == typeof target) {
                 target = target[path[i]];
             } else {

@@ -31,6 +31,7 @@ router
     .get('/index', require('./route/index.js'))
     .get('/rss/:url', require('./route/rss.js'))
     .get('/html/:url', require('./route/html.js'))
+    .get('/pipe', require('./route/pipe.js'))
 app
     .use(router.routes())
     .use(router.allowedMethods())
