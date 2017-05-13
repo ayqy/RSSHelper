@@ -6,7 +6,7 @@ An Ionic project for fetching excellent technical blogs.
 
 ### Dev
 
-`node@4.6.2` or older version is required, `node@7.x` is **not suggested**.
+`node@4.6.2` or lower version is required, `node@7.x` is **not suggested**.
 
 global packages:
 
@@ -90,15 +90,15 @@ Then an apk file will be generated:
 
 #####  0.Environment
 
--  OSX@10.12.x:
+-  OSX@10.12.x
 
-  OSX@10.12.x(support building ios10.x, lower version for building ios9.x)
+  support building ios10.x, lower version for building ios9.x
 
--  Xcode@8.x:
+-  Xcode@8.x
 
-  Xcode 8.x(support building ios10.x)
+  support building ios10.x
 
-  Xcode 7.x(ONLY support building ios9.x and lower)
+  Xcode 7.x ONLY supports building ios9.x and lower
 
 **Attention**: Xcode upgrading depends on the OSX upgrading, and can not install/update the Xcode form the appstore on OSX 10.9.
 
@@ -117,14 +117,14 @@ the same as Build android step4.
     cd <path/to>RSSHelper/src/RSSHelper
     ionic build ios
 
-#####  3.Simulate
+#####  4.Simulate
 
     cd <path/to>RSSHelper/src/RSSHelper
     ionic emulate ios
 
 An iOS simulator will start up and then open the app, and everything is fine.
 
-#####  4.Install on the device
+#####  5.Install on the device
 
     cd <path/to>RSSHelper/src/RSSHelper/platforms/ios
     # Open RSSHelper.xcodeproj with Xcode
